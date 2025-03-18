@@ -3,10 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Static Page</title>
+    <title>Exchange Rates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            display: inline-block;
+            max-width: 90%;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Static Page</h1>
-    <p>This page is hosted on GitHub Pages.</p>
+    <h1>Exchange Rates from Vietcombank</h1>
+    <pre id="json-output">Loading...</pre>
+
+    <script>
+        fetch("https://www.vietcombank.com.vn/api/exchangerates?date=2025-03-17")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("json-output").textContent = JSON.stringify(data, null, 4);
+            })
+            .catch(error => {
+                document.getElementById("json-output").textContent = "Error fetching data!";
+                console.error("Error:", error);
+            });
+    </script>
 </body>
 </html>
